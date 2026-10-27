@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Compiler & Phase Visualizer — Compiler Design Project</title>
+  <meta name="description" content="A demonstration of SQL compilation phases: Lexer, Parser, AST, Semantic Analysis, Intermediate Code (TAC), Optimization, and Execution Plan.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="compiler-app">
+    <!-- Top Header -->
+    <header class="compiler-header">
+      <div class="header-titles">
+        <span class="header-badge">Compiler Design Lab</span>
+        <h1 class="header-title">SQL Query Compiler & Phase Visualizer</h1>
+        <span class="header-course">B.Tech Computer Science & Engineering</span>
+      </div>
+      <div class="header-actions">
+        <button id="schemaToggle" class="btn btn-secondary btn-sm" aria-expanded="false" aria-controls="schemaPanel">
+          📋 Database Schema
+        </button>
+      </div>
+    </header>
+
+    <!-- Collapsible Schema Reference Panel -->
+    <section id="schemaPanel" class="schema-panel collapsed" aria-label="Database Schema">
+      <div class="schema-header">
+        <h3>Database Schema Reference</h3>
+        <span class="schema-note">Active tables available for semantic validation</span>
+      </div>
+      <div id="schemaGrid" class="schema-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- Main Container -->
+    <main class="compiler-main">
+      <!-- SQL Editor Section -->
+      <section class="editor-section" aria-label="SQL Editor">
+        <div class="section-toolbar">
+          <div class="toolbar-title">
+            <span class="tool-icon">📝</span>
+            <h2>SQL Query Input</h2>
+          </div>
+          <div class="toolbar-actions">
+            <label for="examplesSelect" class="sr-only">Load Example Query</label>
+            <select id="examplesSelect" class="select-control" aria-label="Select sample query">
+              <option value="">Load Example Query…</option>
+              <option value="basic-select">Basic SELECT</option>
+              <option value="where-query">WHERE Predicate Filter</option>
+              <option value="order-by">ORDER BY Clause</option>
+              <option value="aggregate">Aggregate & GROUP BY</option>
+              <option value="join-query">Relational INNER JOIN</option>
+              <option value="constant-folding">Constant Folding (Arithmetic)</option>
+              <option value="invalid-syntax">Syntax Error Demonstration</option>
+              <option value="semantic-error">Semantic Error (Unknown Column/Table)</option>
+            </select>
+            <button id="clearBtn" class="btn btn-sm btn-ghost" title="Clear SQL input">Clear</button>
+            <button id="resetBtn" class="btn btn-sm btn-ghost" title="Reset to default query">Reset</button>
+            <button id="compileBtn" class="btn btn-sm btn-primary">
+              <span class="btn-icon">▶</span> Compile Query
+            </button>
+          </div>
+        </div>
+
+        <div class="editor-frame">
+          <div class="line-numbers" id="lineNumbers" aria-hidden="true"></div>
+          <textarea id="sqlEditor" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"
+                    placeholder="Enter SQL query here (e.g. SELECT name, salary FROM employees WHERE salary > 50000;)"
+                    aria-label="SQL query editor"></textarea>
+        </div>
+
+        <div class="compiler-status-bar">
+          <div class="status-indicator">
+            <span id="statusDot" class="status-dot status-ready"></span>
+            <span id="statusText" class="status-text">Ready to compile</span>
+          </div>
+          <div class="query-stats" id="queryStats">
+            <span>Encoding: UTF-8</span>
+            <span>Target: Relational Engine</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Compiler Pipeline Navigation -->
+      <nav class="phase-nav-container" aria-label="Compiler Phases">
+        <div class="phase-nav-tabs">
+          <button class="phase-tab-btn active" data-phase-index="0" id="tab-0">01 Lexer</button>
+          <button class="phase-tab-btn" data-phase-index="1" id="tab-1">02 Parser</button>
+          <button class="phase-tab-btn" data-phase-index="2" id="tab-2">03 AST</button>
+          <button class="phase-tab-btn" data-phase-index="3" id="tab-3">04 Semantic Analysis</button>
+          <button class="phase-tab-btn" data-phase-index="4" id="tab-4">05 Intermediate Code</button>
+          <button class="phase-tab-btn" data-phase-index="5" id="tab-5">06 Optimization</button>
+          <button class="phase-tab-btn" data-phase-index="6" id="tab-6">07 Execution Plan</button>
+        </div>
+      </nav>
+
+      <!-- Phase Visualization Output Area -->
+      <section class="phase-view-section" id="phaseViewSection" aria-live="polite" aria-label="Compiler Phase Output">
+        <!-- Rendered dynamically by app.js -->
+      </section>
+
+      <!-- Phase Stepper Bar -->
+      <footer class="phase-stepper-bar">
+        <button id="prevPhaseBtn" class="btn btn-secondary btn-sm" disabled>
+          ← Previous Phase
+        </button>
+        <div id="phaseCounter" class="phase-counter-label">
+          Phase 1 of 7 — Lexical Analysis
+        </div>
+        <button id="nextPhaseBtn" class="btn btn-secondary btn-sm">
+          Next Phase →
+        </button>
+      </footer>
+    </main>
+  </div>
+
+  <script src="js/compiler.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
